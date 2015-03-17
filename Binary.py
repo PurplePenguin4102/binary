@@ -1,6 +1,6 @@
 import math
 
-class Bin_num(object):
+class Binary(object):
     '''Superclass for Logic and Converter, this is where the binary data is stored, hopefully it can be manipulated from here too...'''
     def __init__(self, decvalue=None, binary=None, btype="uns", bit = 8):
         
