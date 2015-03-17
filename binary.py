@@ -14,10 +14,12 @@ class Number(object):
             print "can't do that boss"
             btype = "null"
             self.decvalue = 0
+            return
         elif (abs(decvalue) > 2**(bit-1)) and (btype != "uns"):
             print "can't do that boss"
             btype = "null"
             self.decvalue = 0
+            return
         else:
             pass
 
@@ -31,7 +33,6 @@ class Number(object):
         if decvalue:
             self.decvalue = decvalue
             self._make_bin(bit)
-            self.bit = bit
         elif binary:
             self.binvalue = binary
             self.decvalue = Conv.get_dec(self)
@@ -48,13 +49,14 @@ class Number(object):
             tempvalue /= 2
 
         self.binvalue = position
-
+        self.bit = len(self.binvalue)
+        
         if (self.decvalue < 0) and (self.btype == "sig"):
             position[0] = 1
         elif (self.decvalue < 0) and (self.btype == "1s"):
-            self.convert_1s()
+            Conv.convert_1s(self)
         elif (self.decvalue < 0) and (self.btype == "2s"):
-            self.convert_2s() 
+            Conv.convert_2s(self) 
         else:
             pass
 
@@ -64,11 +66,20 @@ class Number(object):
         else:
             self.binvalue[ind] = 0
 
-    def prettyprint(self):
-        if self.btype == "null":
-            pass
+    def prettyprint(self, format = "dec"):
+        ''' prints out the value of self. Accompanying the binary is the value in either "dec", "hex" or "oct"'''
+        if self.btype == "null": return
         else:
-            print str(self.decvalue), "in", str(len(self.binvalue)) + "-bit", self.HASH[self.btype] + ":"
+            if format == "dec":
+                value = self.decvalue
+            elif format == "hex":
+                value = Conv.get_hex(self)
+            elif format == "oct":
+                value = Conv.get_oct(self)
+                print value
+            else: return 
+
+            print value, "in", str(len(self.binvalue)) + "-bit", self.HASH[self.btype] + ":"
             if self.bit % 4 == 0:
                 print (("{}"*4+" ")*(self.bit/4)).format(*self.binvalue)
             else:
