@@ -1,3 +1,5 @@
+import binary
+
 class Combinations(object):
     ''' a class for dealing with combinational logic: Adders, decoders, multiplexers. To be used with Bin_nums'''
 

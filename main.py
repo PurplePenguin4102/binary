@@ -1,3 +1,12 @@
-import Logic, Converter, Combinations, Binary
+import binary, logic, converter, combinations
 
-L = Logic()
+Logic = logic.LogicClass()
+Conv = converter.ConverterClass()
+Comb = combinations.Combinations()
+
+# if __name__ == "__main__":
+bin1 = binary.Number(binary = [0,1,0,1])
+bin2 = binary.Number(binary = [0,0,1,1])
+bin3 = Logic.Xor(bin1,bin2)
+#print bin3.decvalue
+bin3.prettyprint()

@@ -1,6 +1,10 @@
-import math
+import math, logic, converter, combinations
 
-class Binary(object):
+Logic = logic.LogicClass()
+Conv = converter.ConverterClass()
+Comb = combinations.Combinations()
+
+class Number(object):
     '''Superclass for Logic and Converter, this is where the binary data is stored, hopefully it can be manipulated from here too...'''
     def __init__(self, decvalue=None, binary=None, btype="uns", bit = 8):
         
@@ -30,7 +34,7 @@ class Binary(object):
             self.bit = bit
         elif binary:
             self.binvalue = binary
-            self.get_dec()
+            self.decvalue = Conv.get_dec(self)
             self.bit = len(binary)
         else:
             pass
@@ -70,22 +74,25 @@ class Binary(object):
             else:
                 print ("{}"*self.bit).format(*self.binvalue)
 
-    def add_bin(self,bin_no):
+    def addbin(self,b):
         ''' a mathematical binary adder. Simply adds bits together and discards the carry. 
-        Modifies the number, useful for adding a decimal value converted to unsigned binary to a number'''
-        temp1 = self.binvalue[::-1]
-        bin_no = temp2.binvalue[::-1]
+        Modifies the number, useful for adding a decimal value converted to unsigned binary to a number
+
+        computes a = a + b'''
+        a = self.binvalue[::-1]
+        b = b.binvalue[::-1]
         carry = 0
 
-        for i in range(len(temp1)):
-            temp1[i] += temp2[i] + carry
-            if temp1[i] >= 2:
-                temp1[i] += -2
+        for i in range(len(a)):
+            a[i] += b[i] + carry
+            if a[i] >= 2:
+                a[i] += -2
                 carry = 1
+            else: carry = 0
 
-        self.binvalue=temp1[::-1]
+        self.binvalue = a[::-1]
         if self.btype == "uns":
-            self.get_dec()
+            self.decvalue = Conv.get_dec(self)
 
 if __name__ == "__main__":
     pass
